@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -40,14 +42,26 @@ public class MainBoard extends JPanel {
     }
     private void initComp(){
         this.setLayout(new GridLayout(rows,cols));
-
+        cellArray = new boardCells[rows][cols];
         for(int i=0; i<rows; i++){
             for(int j=0; j<cols; j++){
                 cellArray[i][j] = new boardCells(Color.CYAN);
+                int finalJ = j;
+                int finalI = i;
+                cellArray[i][j].addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        previewShip(finalI, finalJ);
+                    }
+                    public void mouseExited(MouseEvent e){
+                        cleanBoard();
+                    }
+                });
                 this.add(cellArray[i][j]);
+
             }
         }
-        //na ginete h epilogi mono enos ploiou
+        //na ginete h epilogi mono enos ploiou(kanontas disable ta alla)
         for(int j =0; j<5; j++) {
             carrier.getSlot()[j].addActionListener(e -> {
                 boardCells event = ((boardCells) e.getSource());
@@ -99,7 +113,38 @@ public class MainBoard extends JPanel {
         boardBorderTitle.setTitleJustification(TitledBorder.CENTER);
         this.setBorder(boardBorderTitle);
     }
-    
+    //epanaferei to xrwma tou prhgoumenou shmeiou pou vriskomoun mesa sto board
+    private void cleanBoard() {
+        for(int i=0; i<rows; i++){
+            for(int j=0; j<cols; j++){
+                cellArray[i][j].setBackground(Color.CYAN);
+            }
+        }
+    }
+    //psaxnw to ploio pou epilextheike gia na kanw preview sto board
+    private void previewShip(int i, int j) {
+        if(battleShip.isPressed()){
+            makeCellGreen(battleShip, i, j);
+        }
+        if(carrier.isPressed()){
+            makeCellGreen(carrier, i, j);
+        }
+        if(destroyer.isPressed()){
+            makeCellGreen(destroyer, i, j);
+        }
+        if(subMarine.isPressed()){
+            makeCellGreen(subMarine, i, j);
+        }
+        if(patrolBoat.isPressed()){
+            makeCellGreen(patrolBoat, i, j);
+        }
+    }
+    // pairnei to megethos tou epilegmenou pliou gia na ginei to setBackground sto board
+    private void makeCellGreen(Ships ship,int i, int j) {
+        for(int k=0; k< ship.getShipSize(); k++)
+            cellArray[i][j+k].setBackground(Color.green);
+    }
+    // sunarthsh gia na kanei disable ta alla ploia plin tou epilegmenou
     private void setShipsEnable(Ships e, boolean flag){
         for(int i=0; i<5; i++){
         	//if(e.getSlot()[i].getBackground()== Color.gray || e.getSlot()[i].getBackground()== Color.yellow) {

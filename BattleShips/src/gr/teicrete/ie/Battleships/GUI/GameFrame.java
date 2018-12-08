@@ -1,6 +1,8 @@
 package gr.teicrete.ie.Battleships.GUI;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -46,6 +48,12 @@ public class GameFrame extends JFrame {
 
         //insert the buttons on the botton
         rotB = new JButton("Rotate Ship");
+        rotB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
         startB = new JButton("Start Game");
         this.add(butPane,BorderLayout.SOUTH);
         butPane.add(rotB, BorderLayout.WEST);

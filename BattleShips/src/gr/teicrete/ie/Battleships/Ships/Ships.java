@@ -18,10 +18,6 @@ public class Ships extends JPanel{
 	
     public Ships(){
 		initComp();
-        
-        
-
-
     }
     
     private void initComp() {
@@ -76,7 +72,7 @@ public class Ships extends JPanel{
 		this.pressed = pressed;
 	}
 
-	private boolean isPressed(){
+	public boolean isPressed(){
     	return pressed;
 	}
 
