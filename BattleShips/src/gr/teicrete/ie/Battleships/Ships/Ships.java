@@ -13,6 +13,7 @@ public class Ships extends JPanel{
 	private boolean shipClicked = false;
 	private boolean pressed;
 	private int shipSize;
+	private boolean rotation;
 
 	
 	
@@ -66,7 +67,14 @@ public class Ships extends JPanel{
     public int getShipSize() {
     	return shipSize;
     }
-    
+
+    public void setRotation(boolean rotation){
+    	this.rotation = rotation;
+    }
+
+    public boolean getRotation(){
+    	return rotation;
+	}
     
 	public void setPressed(boolean pressed) {
 		this.pressed = pressed;

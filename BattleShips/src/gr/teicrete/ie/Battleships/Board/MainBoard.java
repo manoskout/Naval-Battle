@@ -126,23 +126,26 @@ public class MainBoard extends JPanel {
         if(battleShip.isPressed()){
             makeCellGreen(battleShip, i, j);
         }
-        if(carrier.isPressed()){
-            makeCellGreen(carrier, i, j);
-        }
-        if(destroyer.isPressed()){
-            makeCellGreen(destroyer, i, j);
-        }
-        if(subMarine.isPressed()){
-            makeCellGreen(subMarine, i, j);
-        }
-        if(patrolBoat.isPressed()){
-            makeCellGreen(patrolBoat, i, j);
-        }
+//        if(carrier.isPressed()){
+//            makeCellGreen(carrier, i, j);
+//        }
+//        if(destroyer.isPressed()){
+//            makeCellGreen(destroyer, i, j);
+//        }
+//        if(subMarine.isPressed()){
+//            makeCellGreen(subMarine, i, j);
+//        }
+//        if(patrolBoat.isPressed()){
+//            makeCellGreen(patrolBoat, i, j);
+//        }
     }
     // pairnei to megethos tou epilegmenou pliou gia na ginei to setBackground sto board
     private void makeCellGreen(Ships ship,int i, int j) {
-        for(int k=0; k< ship.getShipSize(); k++)
-            cellArray[i][j+k].setBackground(Color.green);
+            for(int k=0; k< ship.getShipSize(); k++)
+                if(!ship.getRotation())
+                    cellArray[i][j+k].setBackground(Color.green);
+                else if(ship.getRotation())
+                    cellArray[i+k][j].setBackground(Color.green);
     }
     // sunarthsh gia na kanei disable ta alla ploia plin tou epilegmenou
     private void setShipsEnable(Ships e, boolean flag){

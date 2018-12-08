@@ -18,6 +18,7 @@ public class GameFrame extends JFrame {
     private JPanel mainPane,butPane,boardPane,shipsPane;
     private JLabel instL;
     private JButton rotB,startB;
+    private Boolean rotFlag;
     
     public GameFrame(){
         super("BattleShip - Ship's Placement");
@@ -33,7 +34,7 @@ public class GameFrame extends JFrame {
         SubMarine subMarine= new SubMarine();
         Destroyer destroyer = new Destroyer();
         PatrolBoat patrolBoat = new PatrolBoat();
-
+        rotFlag = false;
         this.setLayout(layout);//to panel olo to parathiro
         mainPane = new JPanel();
         butPane = new JPanel(new BorderLayout());
@@ -51,7 +52,10 @@ public class GameFrame extends JFrame {
         rotB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                if(battleShip.isPressed() && !battleShip.getRotation())
+                    battleShip.setRotation(true);
+                else if(battleShip.isPressed() && battleShip.getRotation())
+                    battleShip.setRotation(false);
             }
         });
         startB = new JButton("Start Game");
@@ -60,11 +64,11 @@ public class GameFrame extends JFrame {
         butPane.add(startB, BorderLayout.EAST);
 
         //Insert the Ships
-        shipsPane.add(carrier);
+        //shipsPane.add(carrier);
         shipsPane.add(battleShip);
-        shipsPane.add(subMarine);
-        shipsPane.add(destroyer);
-        shipsPane.add(patrolBoat);
+        //shipsPane.add(subMarine);
+        //shipsPane.add(destroyer);
+        //shipsPane.add(patrolBoat);
         shipsPane.setPreferredSize(new Dimension (400,400));
         EmptyBorder shipBorder = new EmptyBorder(50,50,50,50);
         TitledBorder shipBorderTitle = BorderFactory.createTitledBorder(shipBorder, "Ships to be Placed");
